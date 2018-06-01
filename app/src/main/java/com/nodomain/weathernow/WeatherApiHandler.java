@@ -53,6 +53,7 @@ public class WeatherApiHandler {
     public String getTimeZone(){
         String res = "N/A";
         try {
+            if(allData != null)
             res  = allData.getString("timezone");
         }
         catch (JSONException e){
@@ -64,6 +65,7 @@ public class WeatherApiHandler {
     private void get_Currently_JSONObject(){
         currently = null;
         try {
+            if(allData != null)
             currently = allData.getJSONObject("currently");
         }
         catch (JSONException e){

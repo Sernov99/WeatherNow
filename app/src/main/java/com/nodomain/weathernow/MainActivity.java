@@ -12,6 +12,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
@@ -62,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
                  timeZoneTextView.setText(weatherApiHandler.getTimeZone());
                  TextView tempTextView = (TextView) findViewById(R.id.temp);
                  tempTextView.setText(weatherApiHandler.getCurrentTemperature() + "°");
+                ImageView geo_img = (ImageView) findViewById(R.id.geo_img);
+                geo_img.setVisibility(View.VISIBLE);
+                ImageView termo_img = (ImageView) findViewById(R.id.termo_img);
+                termo_img.setVisibility(View.VISIBLE);
                  break;
         }
 
