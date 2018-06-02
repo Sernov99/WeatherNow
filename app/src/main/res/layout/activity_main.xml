@@ -14,6 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +27,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="monospace"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeZone" />
@@ -52,23 +55,20 @@
         android:id="@+id/geo_img"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/temp"
         app:layout_constraintEnd_toStartOf="@+id/timeZone"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/geolocation" />
+        app:srcCompat="@drawable/ic_geo" />
 
     <ImageView
         android:id="@+id/termo_img"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/temp"
+        android:layout_marginTop="15dp"
         android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/temp"
         app:layout_constraintTop_toBottomOf="@+id/geo_img"
-        app:srcCompat="@drawable/thermometer" />
+        app:srcCompat="@drawable/ic_thermo" />
 </android.support.constraint.ConstraintLayout>

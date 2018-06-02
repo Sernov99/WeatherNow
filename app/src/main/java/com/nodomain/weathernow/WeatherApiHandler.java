@@ -74,9 +74,8 @@ public class WeatherApiHandler {
     }
 
 
-    public String getCurrentTemperature(){
-        String res = "N/A";
-
+    public int getCurrentTemperature(){
+        int res = 0;
         if(currently!=null) {
             double temp = 0;
             try {
@@ -85,9 +84,8 @@ public class WeatherApiHandler {
                 e.printStackTrace();
             }
             //convert to Celsius
-            res = Integer.toString((int)Math.round((temp -32) *5/9));
+            res = (int)Math.round((temp -32) *5/9);
         }//if statement end
-
         return res;
     }
 

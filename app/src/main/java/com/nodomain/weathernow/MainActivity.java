@@ -39,22 +39,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //find loading animation to use in async task
+        loadAnim = findViewById(R.id.loadAnim);
 
         //Initializing weather api handler
         weatherApiHandler = new WeatherApiHandler();
         weatherApiHandler.setToken("83015247ed10c4b625e43e5b6168d356");
 
-        //Default - get current location
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        getCurrentLocation();
-
-        //find loading animation to use in async task
-        loadAnim = findViewById(R.id.loadAnim);
-
-        //Update current weather data in async task
-        weatherUpdateTask = new WeatherUpdateTask();
-        weatherUpdateTask.execute();
-
+        updateWeatherInfo();
 
     }
 
@@ -64,12 +56,13 @@ public class MainActivity extends AppCompatActivity {
                  TextView timeZoneTextView = (TextView) findViewById(R.id.timeZone);
                  timeZoneTextView.setText(weatherApiHandler.getTimeZone());
                  TextView tempTextView = (TextView) findViewById(R.id.temp);
-                 tempTextView.setText(weatherApiHandler.getCurrentTemperature() + "°");
+                 String temp = Integer.toString(weatherApiHandler.getCurrentTemperature()) + "°";
+                 tempTextView.setText(temp);
                 ImageView geo_img = (ImageView) findViewById(R.id.geo_img);
                 geo_img.setVisibility(View.VISIBLE);
                 ImageView termo_img = (ImageView) findViewById(R.id.termo_img);
                 termo_img.setVisibility(View.VISIBLE);
-                 break;
+                break;
         }
 
     }
@@ -88,6 +81,17 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Error:","Location N/A");
             }
         }
+    }
+
+    private void updateWeatherInfo(){
+
+        //Default - get current location
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        getCurrentLocation();
+
+        //Update current weather data in async task
+        weatherUpdateTask = new WeatherUpdateTask();
+        weatherUpdateTask.execute();
     }
 
     @Override
