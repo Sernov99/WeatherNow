@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private WeatherApiHandler weatherApiHandler;
     private WeatherUpdateTask weatherUpdateTask;
+
     private AVLoadingIndicatorView loadAnim;
 
     static final int REQUEST_LOCATION = 101;
@@ -46,13 +48,17 @@ public class MainActivity extends AppCompatActivity {
         weatherApiHandler = new WeatherApiHandler();
         weatherApiHandler.setToken("83015247ed10c4b625e43e5b6168d356");
 
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
         updateWeatherInfo();
 
     }
 
     private void updateScreenInfo(int requestCode){
         switch (requestCode) {
+
             case CURRENT_TIME_AND_POSITION:
+
                  TextView timeZoneTextView = (TextView) findViewById(R.id.timeZone);
                  timeZoneTextView.setText(weatherApiHandler.getTimeZone());
                  TextView tempTextView = (TextView) findViewById(R.id.temp);
@@ -62,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 geo_img.setVisibility(View.VISIBLE);
                 ImageView termo_img = (ImageView) findViewById(R.id.termo_img);
                 termo_img.setVisibility(View.VISIBLE);
+                ImageView rect = (ImageView) findViewById(R.id.rect);
+                rect.setVisibility(View.VISIBLE);
+                ImageButton refresh = (ImageButton) findViewById(R.id.refreshButton);
+                refresh.setVisibility(View.VISIBLE);
+
                 break;
         }
 
@@ -83,16 +94,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateWeatherInfo(){
+    public void updateWeatherInfo(){
 
         //Default - get current location
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         getCurrentLocation();
 
         //Update current weather data in async task
         weatherUpdateTask = new WeatherUpdateTask();
         weatherUpdateTask.execute();
+
+        final ImageButton refresh = (ImageButton) findViewById(R.id.refreshButton);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weatherUpdateTask = new WeatherUpdateTask();
+                refresh.setVisibility(View.INVISIBLE);
+                weatherUpdateTask.execute();
+            }
+        });
+
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults) {
@@ -111,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loadAnim.show();
+            loadAnim.smoothToShow();
         }
 
         @Override
@@ -123,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            loadAnim.hide();
+            loadAnim.smoothToHide();
             updateScreenInfo(CURRENT_TIME_AND_POSITION);
         }
     }
